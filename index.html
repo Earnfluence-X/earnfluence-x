@@ -134,6 +134,7 @@
             transition: all 0.4s;
             position: relative;
             padding: 8px 0;
+            cursor: pointer;
         }
 
         .nav-links a::before {
@@ -321,15 +322,116 @@
             background: linear-gradient(180deg, transparent, rgba(5, 244, 183, 0.02));
         }
 
-        .blog-grid {
+        /* Blog Tabs */
+        .blog-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .blog-tab {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .blog-tab:hover, .blog-tab.active {
+            background: linear-gradient(135deg, var(--cyber-mint), var(--electric-blue));
+            color: var(--obsidian);
+            border-color: transparent;
+        }
+
+        /* Blog Posts Container */
+        .blog-posts-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .blog-post {
+            display: none;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .blog-post.active-post {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .blog-post h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--brushed-silver), var(--cyber-mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blog-meta {
+            color: var(--cyber-mint);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .blog-post-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(5, 244, 183, 0.15), rgba(0, 240, 255, 0.15));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin: 20px 0;
+        }
+
+        .blog-post p {
+            margin-bottom: 20px;
+            color: rgba(232, 232, 232, 0.85);
+            line-height: 1.8;
+        }
+
+        .blog-post h3 {
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            color: var(--cyber-mint);
+        }
+
+        .back-to-blog {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--cyber-mint);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Blog Preview Cards */
+        .blog-previews {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 40px;
             max-width: 1300px;
             margin: 0 auto;
         }
 
-        .blog-card {
+        .blog-preview-card {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
             border-radius: 30px;
@@ -339,28 +441,26 @@
             cursor: pointer;
         }
 
-        .blog-card:hover {
+        .blog-preview-card:hover {
             transform: translateY(-15px) scale(1.02);
             border-color: var(--cyber-mint);
             box-shadow: 0 30px 60px rgba(5, 244, 183, 0.2);
         }
 
-        .blog-image {
-            height: 280px;
+        .blog-preview-image {
+            height: 250px;
             background: linear-gradient(135deg, rgba(5, 244, 183, 0.15), rgba(0, 240, 255, 0.15));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4.5rem;
-            position: relative;
-            overflow: hidden;
+            font-size: 4rem;
         }
 
-        .blog-content {
+        .blog-preview-content {
             padding: 30px;
         }
 
-        .blog-category {
+        .blog-preview-category {
             color: var(--cyber-mint);
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -368,15 +468,14 @@
             margin-bottom: 15px;
         }
 
-        .blog-title {
+        .blog-preview-title {
             font-size: 1.4rem;
-            margin-bottom: 20px;
-            line-height: 1.4;
+            margin-bottom: 15px;
         }
 
-        .blog-excerpt {
+        .blog-preview-excerpt {
             color: rgba(232, 232, 232, 0.6);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .read-more {
@@ -387,6 +486,7 @@
             align-items: center;
             gap: 10px;
             transition: gap 0.3s;
+            cursor: pointer;
         }
 
         .read-more:hover {
@@ -555,6 +655,9 @@
             .authority-text { font-size: 2rem; }
             .section-title { font-size: 2.2rem; }
             .whatsapp-float { bottom: 110px; width: 55px; height: 55px; font-size: 1.6rem; }
+            .blog-post { padding: 25px; }
+            .blog-post h2 { font-size: 1.8rem; }
+            .blog-previews { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -579,10 +682,10 @@
     <!-- Bottom Center Premium Navigation -->
     <div class="bottom-nav">
         <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#blog">Blog</a></li>
+            <li><a data-section="home" class="active">Home</a></li>
+            <li><a data-section="about">About</a></li>
+            <li><a data-section="services">Services</a></li>
+            <li><a data-section="blog">Blog</a></li>
         </ul>
     </div>
 
@@ -612,6 +715,35 @@
                 <div class="card-icon"><i class="fas fa-gem"></i></div>
                 <h3>Luxury Positioning</h3>
                 <p>Command attention and respect in your industry with unmatched authority and presence.</p>
+            </div>
+        </div>
+        
+        <!-- Team & Testimonials Section -->
+        <div class="cards-grid" style="margin-top: 60px;">
+            <div class="card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                <h3>Emmanuel Omodiale</h3>
+                <p>Founder & Visionary – "Building authority and influence that lasts. Excellence is non-negotiable."</p>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card-icon"><i class="fas fa-chart-simple"></i></div>
+                <h3>Chinyere Nnaji</h3>
+                <p>Lead Strategist – "Every brand has potential. Our role is to unlock it with precision and style."</p>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="card-icon"><i class="fas fa-palette"></i></div>
+                <h3>David Ajayi</h3>
+                <p>Creative Director – "We craft high-end experiences, from design to strategy, ensuring every client shines."</p>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="card-icon"><i class="fas fa-star"></i></div>
+                <h3>T. Okoro</h3>
+                <p>"Earnfluence_X transformed how I approach my personal brand. The strategies are actionable and elite."</p>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="500">
+                <div class="card-icon"><i class="fas fa-star"></i></div>
+                <h3>A. Bello</h3>
+                <p>"I went from invisible to recognized in my niche. Their approach is next-level."</p>
             </div>
         </div>
     </section>
@@ -656,33 +788,151 @@
     <!-- Blog Section -->
     <section id="blog" class="blog-section">
         <h2 class="section-title" data-aos="fade-up">Insights & Authority</h2>
-        <div class="blog-grid">
-            <div class="blog-card" data-aos="fade-up" data-aos-delay="100" data-blog-url="blog1.html">
-                <div class="blog-image"><i class="fas fa-chart-line"></i></div>
-                <div class="blog-content">
-                    <div class="blog-category">Strategy</div>
-                    <h3 class="blog-title">Why Most Personal Brands Stay Broke</h3>
-                    <p class="blog-excerpt">Learn the mistakes that kill personal brand income...</p>
-                    <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+        
+        <!-- Blog Tabs -->
+        <div class="blog-tabs">
+            <div class="blog-tab active" data-view="previews">📖 All Posts</div>
+            <div class="blog-tab" data-view="post1">💎 Why Personal Brands Stay Broke</div>
+            <div class="blog-tab" data-view="post2">💰 Psychology of Premium Pricing</div>
+            <div class="blog-tab" data-view="post3">👑 Authority Framework Explained</div>
+        </div>
+
+        <!-- Blog Previews -->
+        <div id="blogPreviews" class="blog-previews">
+            <div class="blog-preview-card" data-post="post1" data-aos="fade-up" data-aos-delay="100">
+                <div class="blog-preview-image"><i class="fas fa-chart-line"></i></div>
+                <div class="blog-preview-content">
+                    <div class="blog-preview-category">Strategy</div>
+                    <h3 class="blog-preview-title">Why Most Personal Brands Stay Broke</h3>
+                    <p class="blog-preview-excerpt">Learn the mistakes that kill personal brand income and how to fix them with proven strategies...</p>
+                    <span class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></span>
                 </div>
             </div>
-            <div class="blog-card" data-aos="fade-up" data-aos-delay="200" data-blog-url="blog2.html">
-                <div class="blog-image"><i class="fas fa-tag"></i></div>
-                <div class="blog-content">
-                    <div class="blog-category">Pricing</div>
-                    <h3 class="blog-title">The Psychology of Premium Pricing</h3>
-                    <p class="blog-excerpt">Why charging more increases perceived value...</p>
-                    <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+            <div class="blog-preview-card" data-post="post2" data-aos="fade-up" data-aos-delay="200">
+                <div class="blog-preview-image"><i class="fas fa-tag"></i></div>
+                <div class="blog-preview-content">
+                    <div class="blog-preview-category">Pricing</div>
+                    <h3 class="blog-preview-title">The Psychology of Premium Pricing</h3>
+                    <p class="blog-preview-excerpt">Why charging more increases perceived value and attracts better clients to your business...</p>
+                    <span class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></span>
                 </div>
             </div>
-            <div class="blog-card" data-aos="fade-up" data-aos-delay="300" data-blog-url="blog3.html">
-                <div class="blog-image"><i class="fas fa-crown"></i></div>
-                <div class="blog-content">
-                    <div class="blog-category">Authority</div>
-                    <h3 class="blog-title">Authority Framework Explained</h3>
-                    <p class="blog-excerpt">How to move from invisible to highly respected...</p>
-                    <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+            <div class="blog-preview-card" data-post="post3" data-aos="fade-up" data-aos-delay="300">
+                <div class="blog-preview-image"><i class="fas fa-crown"></i></div>
+                <div class="blog-preview-content">
+                    <div class="blog-preview-category">Authority</div>
+                    <h3 class="blog-preview-title">Authority Framework Explained</h3>
+                    <p class="blog-preview-excerpt">How to move from invisible to highly respected in your niche using our proven framework...</p>
+                    <span class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></span>
                 </div>
+            </div>
+        </div>
+
+        <!-- Blog Posts Container -->
+        <div id="blogPostsContainer" class="blog-posts-container">
+            <!-- Blog Post 1 -->
+            <div id="post1" class="blog-post">
+                <h2>Why Most Personal Brands Stay Broke</h2>
+                <div class="blog-meta"><i class="fas fa-calendar"></i> April 2026 | <i class="fas fa-tag"></i> Strategy | <i class="fas fa-clock"></i> 8 min read</div>
+                <div class="blog-post-image"><i class="fas fa-chart-line"></i></div>
+                
+                <p>Most personal brands fail because they focus on vanity metrics instead of real value. They chase likes, followers, and views while ignoring the fundamentals of building a profitable brand. After working with hundreds of creators, I've identified the critical mistakes that keep talented people broke.</p>
+                
+                <h3>The Vanity Metrics Trap</h3>
+                <p>Having 10,000 followers means nothing if those followers don't trust you or buy from you. Many creators obsess over growth hacks and engagement bait while neglecting the one thing that actually matters: providing genuine value to a specific audience. Engagement rate means more than follower count. Conversion rate matters more than views.</p>
+                
+                <h3>Inconsistent Content Strategy</h3>
+                <p>Another critical mistake is posting inconsistently. Authority is built through repeated exposure. When you disappear for weeks, your audience forgets you. When you return, you're essentially starting from zero again. The most successful personal brands post consistently — daily or at least 5 times per week — without exception.</p>
+                
+                <h3>No Monetization Plan</h3>
+                <p>Many creators build an audience first and figure out monetization later. This is backwards. You should know how you're going to make money before you post your first piece of content. Without a clear monetization strategy, you're just building an audience for Instagram's benefit, not yours. Decide: courses? consulting? affiliate? products? Have a plan.</p>
+                
+                <h3>Underpricing Everything</h3>
+                <p>Charging too little is a silent killer of personal brands. Low prices signal low quality. Premium pricing attracts serious clients, funds better content, and positions you as an authority rather than a commodity. The most successful creators charge 3-10x more than they initially thought possible.</p>
+                
+                <h3>No Niche Focus</h3>
+                <p>Being "everything to everyone" means you're nothing to no one. The most successful personal brands dominate a specific niche. When people think of that topic, they think of you. Generalists get lost in the noise. Pick a narrow niche and become the undeniable expert in that space.</p>
+                
+                <h3>Neglecting Network Effects</h3>
+                <p>Your network determines your net worth. Many creators try to build alone when they should be collaborating. Partner with other creators in your space. Guest post on established blogs. Appear on podcasts. Each collaboration expands your reach and builds credibility through association.</p>
+                
+                <h3>The Solution</h3>
+                <p>Start with a clear niche. Create consistently valuable content. Have a monetization strategy from day one. Price your offerings at a premium. Focus on building trust, not just followers. Network strategically. Authority and wealth follow when you solve real problems for real people.</p>
+                
+                <p><strong>Remember:</strong> Your personal brand is your greatest asset. Treat it like the valuable business it is, and it will reward you accordingly.</p>
+                
+                <span class="back-to-blog" data-back="true">← Back to all posts</span>
+            </div>
+
+            <!-- Blog Post 2 -->
+            <div id="post2" class="blog-post">
+                <h2>The Psychology of Premium Pricing</h2>
+                <div class="blog-meta"><i class="fas fa-calendar"></i> April 2026 | <i class="fas fa-tag"></i> Pricing | <i class="fas fa-clock"></i> 7 min read</div>
+                <div class="blog-post-image"><i class="fas fa-tag"></i></div>
+                
+                <p>Premium pricing is not just a strategy; it's a mindset shift. People perceive higher-priced products as higher quality, and that perception drives demand in ways discounting never can. If you're charging less than $1,000 for your core offer, you're leaving money on the table.</p>
+                
+                <h3>The Veblen Effect</h3>
+                <p>Named after economist Thorstein Veblen, this principle shows that for luxury goods, demand actually INCREASES as price increases. Why? Because high prices signal exclusivity, status, and quality. Your audience judges your expertise partly by what you charge. Low prices = low perceived expertise.</p>
+                
+                <h3>Confidence Communicates Competence</h3>
+                <p>Charging more positions you as an authority. It communicates confidence and expertise without saying a word. When you charge $97 instead of $997, you're telling the market you don't believe in your own value. Price is a signal. What signal are you sending?</p>
+                
+                <h3>The Underpricing Trap</h3>
+                <p>Many brands undercharge because they fear losing clients. But underpricing attracts the wrong audience — bargain hunters who complain more, demand more, and refer less. Premium pricing filters for serious, committed clients who value what you do and are a pleasure to work with.</p>
+                
+                <h3>Scarcity + Price = Urgency</h3>
+                <p>Psychologically, scarcity combined with higher price creates powerful urgency. Customers feel they are getting something rare and valuable that others can't access. This perception drives faster purchasing decisions and reduces buyer's remorse. Limited spots at a premium price = irresistible offer.</p>
+                
+                <h3>Reinvesting in Quality</h3>
+                <p>Higher prices allow you to invest more in quality, marketing, and branding. Better design, better delivery, better support — all of which further reinforce your premium positioning and create a virtuous cycle of increasing value. Premium prices fund premium experiences.</p>
+                
+                <h3>The Status Signal</h3>
+                <p>People often associate price with social status. Your pricing strategy should align with the luxury and elite positioning you want to maintain. When clients pay premium prices, they become proud advocates because being your client signals they've "made it."</p>
+                
+                <h3>Implementation Tips</h3>
+                <p>Start by raising your prices 2-3x. You'll lose some clients but gain better ones. Test different price points. Bundle services into premium packages. Add high-touch elements like VIP access or personal consultations. Most importantly, deliver undeniable value that makes premium pricing feel like a bargain.</p>
+                
+                <p><strong>Case Study:</strong> One of our clients raised their coaching prices from $500 to $5,000. They lost 70% of inquiries but made 3x more revenue with less work and happier clients. Premium pricing works.</p>
+                
+                <span class="back-to-blog" data-back="true">← Back to all posts</span>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div id="post3" class="blog-post">
+                <h2>Authority Framework Explained</h2>
+                <div class="blog-meta"><i class="fas fa-calendar"></i> April 2026 | <i class="fas fa-tag"></i> Authority | <i class="fas fa-clock"></i> 10 min read</div>
+                <div class="blog-post-image"><i class="fas fa-crown"></i></div>
+                
+                <p>Authority is not given; it's built strategically over time. No one wakes up as an industry leader. Authority is earned through consistent action, visible expertise, and genuine value delivery. After studying hundreds of successful creators, I've distilled the framework into 7 repeatable steps.</p>
+                
+                <h3>Step 1: Own Your Niche</h3>
+                <p>The first step is defining your niche and owning it completely. You can't be the authority on "marketing" — that's too broad. But you CAN be the authority on "email marketing for SaaS founders." Specificity builds authority. The narrower your focus, the faster you dominate.</p>
+                
+                <h3>Step 2: Consistent Content Engine</h3>
+                <p>Consistency in content creation is non-negotiable. Regular high-quality output signals expertise and reliability. Post weekly, or even daily. Show up so often that people can't ignore you. Authority favors the visible. Create a content calendar and stick to it religiously.</p>
+                
+                <h3>Step 3: Social Proof Amplification</h3>
+                <p>Social proof amplifies authority exponentially. Collect testimonials from every client. Showcase results publicly. Get featured on podcasts, in articles, and at events. Each piece of social proof builds on the last, creating unstoppable momentum. Nothing builds trust like proof.</p>
+                
+                <h3>Step 4: Deep Audience Engagement</h3>
+                <p>Engaging with your audience personally builds trust. Reply to comments. Answer DMs. Host live sessions. When people feel seen and heard by you, they become loyal advocates who defend and promote your brand. Authority without approachability is intimidation.</p>
+                
+                <h3>Step 5: Multi-Channel Presence</h3>
+                <p>Visibility across platforms ensures your authority is noticed. Being everywhere — LinkedIn, Twitter, YouTube, podcasts — creates a perception of dominance. People assume you're a big deal when they see you everywhere they look. Dominate 2-3 platforms, but have a presence on all major channels.</p>
+                
+                <h3>Step 6: Strategic Networking</h3>
+                <p>Networking with other authorities elevates your brand by association. Collaborate with people above your level. Get quoted by influencers. The company you keep signals your status to the market. Your network is your net worth. Invest in relationships strategically.</p>
+                
+                <h3>Step 7: Premium Positioning</h3>
+                <p>High-quality design, messaging, and pricing reinforce the perception of authority. Look like an authority before you feel like one. Invest in professional branding. Your visual identity should scream premium before anyone reads a single word of your content.</p>
+                
+                <h3>The Cumulative Effect</h3>
+                <p>Finally, understand that authority is cumulative. Every post, collaboration, testimonial, and interaction contributes to the long-term perception of your brand as a leader. There are no shortcuts. But if you follow this framework consistently, authority is inevitable.</p>
+                
+                <p><strong>Remember:</strong> Authority compounds. The first 6 months feel slow. The next 6 months accelerate. After 2 years, you're unstoppable. Trust the process and keep showing up.</p>
+                
+                <span class="back-to-blog" data-back="true">← Back to all posts</span>
             </div>
         </div>
     </section>
@@ -841,37 +1091,83 @@
         }
     });
 
-    const sections = document.querySelectorAll('section[id]');
+    const sections = ['home', 'about', 'services', 'blog'];
     const navLinks = document.querySelectorAll('.nav-links a');
     
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if(window.scrollY >= sectionTop - 200) current = section.getAttribute('id');
-        });
+    function showSection(sectionId) {
+        const element = document.getElementById(sectionId);
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+        
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if(link.getAttribute('href') === `#${current}`) link.classList.add('active');
+            if(link.getAttribute('data-section') === sectionId) link.classList.add('active');
         });
-    });
+    }
     
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            if(targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
+            const sectionId = link.getAttribute('data-section');
+            showSection(sectionId);
         });
     });
-
-    // ========== INTERACTIVE DOOR OPENING / GLASS SHATTER ANIMATION ==========
     
+    // Blog functionality
+    const blogPreviews = document.getElementById('blogPreviews');
+    const allPosts = document.querySelectorAll('.blog-post');
+    const previewCards = document.querySelectorAll('.blog-preview-card');
+    const blogTabs = document.querySelectorAll('.blog-tab');
+    
+    function showBlogPost(postId) {
+        allPosts.forEach(post => post.classList.remove('active-post'));
+        const selectedPost = document.getElementById(postId);
+        if (selectedPost) selectedPost.classList.add('active-post');
+        blogPreviews.style.display = 'none';
+        blogTabs.forEach(tab => {
+            tab.classList.remove('active');
+            if(tab.getAttribute('data-view') === postId) tab.classList.add('active');
+        });
+    }
+    
+    function showAllPreviews() {
+        allPosts.forEach(post => post.classList.remove('active-post'));
+        blogPreviews.style.display = 'grid';
+        blogTabs.forEach(tab => {
+            tab.classList.remove('active');
+            if(tab.getAttribute('data-view') === 'previews') tab.classList.add('active');
+        });
+    }
+    
+    previewCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const postId = card.getAttribute('data-post');
+            showBlogPost(postId);
+        });
+    });
+    
+    blogTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const view = tab.getAttribute('data-view');
+            if (view === 'previews') {
+                showAllPreviews();
+            } else {
+                showBlogPost(view);
+            }
+        });
+    });
+    
+    document.querySelectorAll('.back-to-blog').forEach(btn => {
+        btn.addEventListener('click', () => {
+            showAllPreviews();
+        });
+    });
+    
+    showAllPreviews();
+
+    // Portal and glass shatter effects
     const portalOverlay = document.getElementById('portalOverlay');
     const glassContainer = document.getElementById('glassContainer');
-    let transitionInProgress = false;
     
-    // Function to create glass shatter effect
     function createGlassShatter(clickX, clickY) {
         glassContainer.innerHTML = '';
         const shardCount = 50;
@@ -879,99 +1175,42 @@
         for (let i = 0; i < shardCount; i++) {
             const shard = document.createElement('div');
             shard.className = 'glass-shard';
-            
-            // Random size
             const width = 15 + Math.random() * 35;
             const height = 15 + Math.random() * 35;
             shard.style.width = width + 'px';
             shard.style.height = height + 'px';
-            
-            // Position at click or center of screen
             const startX = clickX || window.innerWidth / 2;
             const startY = clickY || window.innerHeight / 2;
             shard.style.left = startX - width/2 + 'px';
             shard.style.top = startY - height/2 + 'px';
-            
-            // Random rotation and translation
             const tx = (Math.random() - 0.5) * 400;
             const ty = (Math.random() - 0.5) * 300 - 100;
             const tr = (Math.random() - 0.5) * 360;
-            
             shard.style.setProperty('--tx', tx + 'px');
             shard.style.setProperty('--ty', ty + 'px');
             shard.style.setProperty('--tr', tr + 'deg');
-            
-            // Random animation delay
             shard.style.animationDelay = (Math.random() * 0.1) + 's';
-            
             glassContainer.appendChild(shard);
         }
-        
-        // Remove shards after animation
-        setTimeout(() => {
-            glassContainer.innerHTML = '';
-        }, 1000);
+        setTimeout(() => { glassContainer.innerHTML = ''; }, 1000);
     }
     
-    // Function to open portal and navigate
-    function navigateToBlog(url, clickX, clickY) {
-        if (transitionInProgress) return;
-        transitionInProgress = true;
-        
-        // Create glass shatter effect
+    function openPortal(url, clickX, clickY) {
         createGlassShatter(clickX, clickY);
-        
-        // Show portal overlay
         portalOverlay.classList.add('active');
-        
-        // Play portal sound effect (simulated with vibration/console)
-        console.log('🌀 Portal opening...');
-        
-        // Navigate after animation
-        setTimeout(() => {
-            window.location.href = url;
-        }, 800);
-        
-        // Reset transition flag after navigation (fallback)
-        setTimeout(() => {
-            transitionInProgress = false;
-        }, 1500);
+        setTimeout(() => { window.location.href = url; }, 800);
     }
     
-    // Add click handlers to blog cards with position tracking
-    document.querySelectorAll('.blog-card').forEach(card => {
-        card.addEventListener('click', (e) => {
+    // Apply to any external links if needed
+    const whatsappBtn = document.querySelector('.whatsapp-float');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            e.stopPropagation();
-            
-            const blogUrl = card.getAttribute('data-blog-url');
-            if (!blogUrl) return;
-            
-            // Get click position for shatter effect
-            const clickX = e.clientX;
-            const clickY = e.clientY;
-            
-            navigateToBlog(blogUrl, clickX, clickY);
+            const url = whatsappBtn.getAttribute('href');
+            const rect = whatsappBtn.getBoundingClientRect();
+            openPortal(url, rect.left + rect.width/2, rect.top + rect.height/2);
         });
-        
-        // Also handle the read-more span click
-        const readMoreSpan = card.querySelector('.read-more');
-        if (readMoreSpan) {
-            readMoreSpan.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const blogUrl = card.getAttribute('data-blog-url');
-                if (!blogUrl) return;
-                
-                const rect = readMoreSpan.getBoundingClientRect();
-                const clickX = rect.left + rect.width / 2;
-                const clickY = rect.top + rect.height / 2;
-                
-                navigateToBlog(blogUrl, clickX, clickY);
-            });
-        }
-    });
+    }
 </script>
 </body>
 </html>
